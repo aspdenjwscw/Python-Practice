@@ -26,7 +26,7 @@ if answer1 == q1b or answer1 == "b":
     print("1 point has been added to your score, your score is now {}".format(score))
 
 else:
-    print("Incorrect, the answer was B!")
+    print("That was not an option!")
     print("Your score has not changed, it is now {}".format(score))
 
 # question2
