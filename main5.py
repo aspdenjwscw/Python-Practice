@@ -6,8 +6,8 @@ play = "yes"
 score = 0
 
 QUESTION_FORMAT = "{}\n A. {}\n B. {}\n C. {}\n D. {}\nAnswer here: "
-COMMENT_LIST_POSITIVE = ["Good job", "Amazing!", "Keep up the good work.", "That was nice!"]
-COMMENT_LIST_NEGATIVE = ["That wasn't good", "Try again.", "You can do better", "Unlucky."]
+COMMENT_LIST_POSITIVE = ["Good job!", "Amazing!", "Keep up the good work.", "That was nice!"]
+COMMENT_LIST_NEGATIVE = ["That wasn't good, try again.", "Incorrect, try again.", "You can do better, try again!", "Unlucky, try again."]
 
 QUESTIONS = ["How many bones are in an ear? ",
                 "Who is the President of the US? ",
@@ -51,63 +51,44 @@ time.sleep(3)
 print("")
 
 while play == "yes":
+    score = 0
+    
+    for i in range(len(QUESTIONS)):
+        question_attempts = tries
+        while question_attempts > 0:
+            answer = input(QUESTION_FORMAT.format(QUESTIONS[i], OPTIONS[i][0],
+                                                    OPTIONS[i][1], OPTIONS[i][2], OPTIONS[i][3])).lower()
+            if answer == OPTIONS[i][ANSWERS[i]].lower() or answer == SHORT_OPTIONS[ANSWERS[i]]:
+                print("You are correct!", random.choice(COMMENT_LIST_POSITIVE))
+                score += 1
+                print("1 point has been added to your score, it is now {}.".format(score))
+                break
+            elif answer == "":
+                print("Not sure?")
+            elif answer in SHORT_OPTIONS or answer in OPTIONS[i]:
+                print("Wrong!, the answer was {}".format(i))
+                print(random.choice(COMMENT_LIST_NEGATIVE))
+            else:
+                print("That was not an option.")
+            question_attempts -= 1
+            if question_attempts == 0:
+                print("You ran out of attempts, you will be moved onto the next question.")
+                break
 
-    # question 1
-    question_attempts1 = tries
-    while question_attempts1 > 0:
-        print("\nQuestion 1:")
-        answer1 = input(QUESTION_FORMAT.format(QUESTIONS[0], OPTIONS[0][0], 
-                                                OPTIONS[0][1], OPTIONS[0][2], OPTIONS[0][3])).lower()
-        if answer1 == OPTIONS[0][ANSWERS[0]] or answer1 == SHORT_OPTIONS[ANSWERS[0]]:
-            print("You are correct!", random.choice(COMMENT_LIST_POSITIVE))
-            score += 1
-            print("1 point has been added to your score, it is now {}.".format(score))
-            break
-        elif answer1 == "":
-            print("You didn't type anything... but the answer was {}.".format(OPTIONS[0][2]))
-            print(random.choice(COMMENT_LIST_NEGATIVE))
-        else:
-            print("You are incorrect, the answer was {}.".format(OPTIONS[0][2]))
-            print(random.choice(COMMENT_LIST_NEGATIVE))
-        time.sleep(2.5)
-        question_attempts1 -= 1
 
-    # question 2
-    question_attempts2 = tries
-    while question_attempts2 > 0:
-        print("\nQuestion 2:")
-        answer2 = input(QUESTION_FORMAT.format(QUESTIONS[1], OPTIONS[1][0],
-                                                OPTIONS[1][1], OPTIONS[1][2], OPTIONS[1][3])).lower()
-        if answer2 == OPTIONS[1][ANSWERS[1]] or answer2 == SHORT_OPTIONS[ANSWERS[0]]:
-            print("You are correct!", random.choice(COMMENT_LIST_POSITIVE))
-            score += 1
-            print("1 point has been added to your score, it is now {}.".format(score))
-            break
-        elif answer2 == "":
-            print("You didn't type anything... but the answer was {}.".format(OPTIONS[1][2]))
-            print(random.choice(COMMENT_LIST_NEGATIVE))
-        else:
-            print("You are incorrect, the answer was {}.".format(OPTIONS[1][2]))
-            print(random.choice(COMMENT_LIST_NEGATIVE))
-        time.sleep(2.5)
-        question_attempts2 -= 1
+    # // Ending the quiz \\
 
-    # question 3
-    question_attempts3 = tries
-    while question_attempts3 > 0:
-        print("\nQuestion 2:")
-        answer3 = input(QUESTION_FORMAT.format(QUESTIONS[2], OPTIONS[2][0],
-                                                OPTIONS[2][1], OPTIONS[2][2], OPTIONS[2][3])).lower()
-        if answer3 == OPTIONS[2][ANSWERS[2]] or answer3 == SHORT_OPTIONS[ANSWERS[0]]:
-            print("You are correct!", random.choice(COMMENT_LIST_POSITIVE))
-            score += 1
-            print("1 point has been added to your score, it is now {}.".format(score))
-            break
-        elif answer3 == "":
-            print("You didn't type anything... but the answer was {}.".format(OPTIONS[1][0]))
-            print(random.choice(COMMENT_LIST_NEGATIVE))
-        else:
-            print("You are incorrect, the answer was {}.".format(OPTIONS[2][0]))
-            print(random.choice(COMMENT_LIST_NEGATIVE))
-        time.sleep(2.5)
-        question_attempts3 -= 1
+    # indicating the user of their final score
+
+    if score == 5:
+        print("Wow {}!! Good job, you aced the quiz with a score of {}.".format(name, score))
+
+    elif score < 5:
+        print("Well done, {}, you had a final score of {}.".format(name, score))
+
+    if score < 2:
+        print("Uh, you didn't do that well to be honest {}. Maybe try again, your score of {} was not that good.".format(name, score))
+
+    # replay
+        
+    play = input("Would you like to play again (yes / no)? ").lower()
