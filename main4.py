@@ -89,15 +89,15 @@ while play == "yes":
         q3c = "10"
         q3d = "8"
         answer3 = input(QUESTION_FORMAT.format(question3, q3a, q3b, q3c, q3d)).lower()
-        if answer3 == q3b.lower() or answer2 == "b":
+        if answer3 == q3b.lower() or answer3 == "b":
             print("You are correct!")
             score += 1
             print("1 point has been added to your score, it is now {}.".format(score))
             break
         elif answer3 == "":
-            print("You didn't type anything... but the answer was {}.".format(q3d))
+            print("You didn't type anything... but the answer was {}.".format(q3b))
         else:
-            print("You are incorrect, the answer was {}.".format(q3d))
+            print("You are incorrect, the answer was {}.".format(q3b))
         time.sleep(2.5)
         question_attempts3 -= 1
      
