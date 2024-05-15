@@ -77,8 +77,9 @@ while play == "yes":
 
 
     # // Ending the quiz \\
-
+    print("")
     # indicating the user of their final score
+
 
     if score == 5:
         print("Wow {}!! Good job, you aced the quiz with a score of {}.".format(name, score))
