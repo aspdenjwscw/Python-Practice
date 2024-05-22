@@ -26,6 +26,8 @@ def getLives():
         lives = input("How many chances do you want? ")
         try:
             lives = int(lives)
+            if lives == 0:
+                print("Please choose a number higher than 0.")
             if lives >= 0:
                 return lives
             else:
@@ -55,7 +57,9 @@ while play.lower() == "yes":
     score = 0
     lives = getLives()
 
-    while lives >= 1:
+    if lives == 0:
+        getLives()
+    while lives >= 1 or lives == 0:
         answer = input("Name one of the top 10 richest countries in the world.\nAnswer here: ")
         if inList(answer, RICHEST_COUNTRIES_ANSWERS):
             # checks if guessed already
@@ -66,12 +70,18 @@ while play.lower() == "yes":
                 score += 1
                 guesses.append(answer)
                 print("You have guessed {} of the 10 richest countries. Your score is {}. You have {} chances remaining".format(len(guesses), score, lives))
+                if score == 10:
+                    break
         else:
             print("Wrong!")
             lives -= 1
             print("You have guessed {} of the 10 richest countries. Your score is {}. You have {} chances remaining.".format(len(guesses), score, lives))
+    
 
     # The end
-    print("You are out of lives, game over. You had a final score of {}".format(score))
+    if score == 10:
+        print("Congrats, you correctly guessed all the countries. Good job!")
+    elif lives == 0:
+        print("You are out of lives, game over. You had a final score of {}".format(score))
         
     play = input("Would you like to play again? ")
