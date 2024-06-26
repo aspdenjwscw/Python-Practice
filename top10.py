@@ -59,7 +59,7 @@ while play.lower() == "yes":
 
     if lives == 0:
         getLives()
-    while lives >= 1 or lives == 0:
+    while lives >= 0:
         answer = input("Name one of the top 10 richest countries in the world.\nAnswer here: ")
         if inList(answer, RICHEST_COUNTRIES_ANSWERS):
             # checks if guessed already
