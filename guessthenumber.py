@@ -57,7 +57,7 @@ def guessing():
             print("Try a higher number.")
             numofguesses += 1
 
-numofguesses = 0
+numofguesses = 1
 won = False
 intro()
 numguess()
